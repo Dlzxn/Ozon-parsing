@@ -57,10 +57,12 @@ class Parser:
         """
         self.input = self.parser.find_element(By.NAME, 'text')
         self.input.clear()
+
+        await asyncio.sleep(1)
         self.input.send_keys(self.name_product_pars)
         print(f"Название {self.name_product_pars}")
 
-        await asyncio.sleep(1)
+        await asyncio.sleep(4)
 
         self.input.send_keys(Keys.ENTER)
         print("Нажатие ENTER")

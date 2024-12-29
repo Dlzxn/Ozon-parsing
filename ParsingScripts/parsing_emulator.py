@@ -10,12 +10,14 @@ import asyncio
 
 
 class Parser:
-    def __init__(self):
+    def __init__(self, name):
         """
         Inizialization WenUrl - website
         start function main
         """
         self.website: str = 'https://www.ozon.ru/'
+        self.name_product_pars: str = name
+
         self.main()
 
 
@@ -26,8 +28,6 @@ class Parser:
         :return:
         """
         print("Введите категорию товаров:")
-
-        self.name_product_pars: str = input()
 
         asyncio.run(self.load_info(self.name_product_pars))
         asyncio.run(self.input_category())
@@ -58,6 +58,7 @@ class Parser:
         self.input = self.parser.find_element(By.NAME, 'text')
         self.input.clear()
         self.input.send_keys(self.name_product_pars)
+        print(f"Название {self.name_product_pars}")
 
         await asyncio.sleep(1)
 
@@ -103,14 +104,14 @@ class Parser:
         :return:
         """
         print("pars cost")
-        try:
-            self.cost = self.parser.find_element(By.CLASS_NAME, 'c3023-a1 tsHeadline500Medium c3023-b1 c3023-a6')
-            print(f'cost {self.cost}')
-            self.prod_cost = list(set(f'{costa.get_attribute("href")}' for costa in self.cost))
-        except Exception as er:
-            print(f"[ERROR] dont find elemets of cost with error: {er}")
+        '''
+        This block for future
+        '''
+        # try:
+        #     self.cost = self.parser.find_element(By.CLASS_NAME, 'c3023-a1 tsHeadline500Medium c3023-b1 c3023-a6')
+        #     print(f'cost {self.cost}')
+        #     self.prod_cost = list(set(f'{costa.get_attribute("href")}' for costa in self.cost))
+        # except Exception as er:
+        #     print(f"[ERROR] dont find elemets of cost with error: {er}")
 
-
-if __name__ == "__main__":
-    info = Parser()
 

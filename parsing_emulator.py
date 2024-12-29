@@ -1,26 +1,30 @@
 """
 parsing with using emulator
 """
-from time import sleep
-
-from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 
 import undetected_chromedriver as ucd
-
-import time
 
 import asyncio
 
 
 class Parser:
     def __init__(self):
+        """
+        Inizialization WenUrl - website
+        start function main
+        """
         self.website: str = 'https://www.ozon.ru/'
         self.main()
 
 
     def main(self):
+        """
+        Input search
+        start syncio with load_info, input_category
+        :return:
+        """
         print("Введите категорию товаров:")
 
         self.name_product_pars: str = input()
@@ -28,10 +32,14 @@ class Parser:
         asyncio.run(self.load_info(self.name_product_pars))
         asyncio.run(self.input_category())
 
-        print("Ожидание?")
-
 
     async def load_info(self, product: str = ''):
+        """
+        inizialization browser(in our script - Chrome browser)
+        open ozon in browser and sleep 1 second for antibot
+        :param product:
+        :return:
+        """
         self.parser = ucd.Chrome()
         self.parser.get(self.website)
 
@@ -40,6 +48,13 @@ class Parser:
 
 
     async def input_category(self):
+        """
+        find in Html "text"
+        input our category(from keyboard)
+        pressed ENTER and sleep 1 second for antibot
+        start function pars_all()
+        :return:
+        """
         self.input = self.parser.find_element(By.NAME, 'text')
         self.input.clear()
         self.input.send_keys(self.name_product_pars)
@@ -56,12 +71,20 @@ class Parser:
 
 
     def pars_all(self):
+        """
+        function for start pars_url, pars_cost
+        :return:
+        """
         self.pars_url()
         self.pars_cost()
 
 
 
     def pars_url(self):
+        """
+        find urls in Ozon
+        :return:
+        """
         try:
             self.links = self.parser.find_elements(By.CLASS_NAME, 'tile-clickable-element')
             print(f'{self.links} это был links')
@@ -75,6 +98,10 @@ class Parser:
 
 
     def pars_cost(self):
+        """
+        find cost of our products in Ozon
+        :return:
+        """
         print("pars cost")
         try:
             self.cost = self.parser.find_element(By.CLASS_NAME, 'c3023-a1 tsHeadline500Medium c3023-b1 c3023-a6')
@@ -85,5 +112,5 @@ class Parser:
 
 
 if __name__ == "__main__":
-        info = Parser()
+    info = Parser()
 

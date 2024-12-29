@@ -114,4 +114,3 @@ def open_app():
     window.show()
     sys.exit(app.exec())
 
-open_app()

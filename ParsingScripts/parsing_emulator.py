@@ -105,15 +105,18 @@ class Parser:
         find cost of our products in Ozon
         :return:
         """
-        print("pars cost")
+        print("pars co")
         '''
         This block for future
         '''
-        # try:
-        #     self.cost = self.parser.find_element(By.CLASS_NAME, 'c3023-a1 tsHeadline500Medium c3023-b1 c3023-a6')
-        #     print(f'cost {self.cost}')
-        #     self.prod_cost = list(set(f'{costa.get_attribute("href")}' for costa in self.cost))
-        # except Exception as er:
-        #     print(f"[ERROR] dont find elemets of cost with error: {er}")
+        try:
+            self.cost = self.parser.find_element(By.CLASS_NAME, 'c3023-a1')
+            print(f'cost {list(self.cost.text)}')
+
+            self.prod_cost = list(set(f'{costa[:-2].split()}' for costa in self.cost.text))
+            print(self.prod_cost)
+
+        except Exception as er:
+            print(f"[ERROR] dont find elemets of cost with error: {er}")
 
 
